@@ -1,19 +1,21 @@
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
-
+require('dotenv').config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // 🔧 Connexion à ta base Aiven
 const db = mysql.createConnection({
-  host: process.env.DB_host,
-  user: process.env.DB_user,
-  password: process.env.DB_password,
-  database: process.env.DB_database,
-  port: process.env.DB_port
+  host: process.env.HOST,
+  user: process.env.USER,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  port: process.env.PORT
 });
+
+console.log(process.env.HOST)
 
 db.connect((err) => {
   if (err) {
