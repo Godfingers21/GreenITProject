@@ -8,13 +8,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: ['http://localhost:5173','https://green-it-project-tawny.vercel.app'], // Ajustez selon votre frontend
-  credentials: true
+  origin: ['http://localhost:5173','https://green-it-project-tawny.vercel.app'],
+  credentials: true,
+  exposedHeaders: ['set-cookie'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json());
 app.use(cookieParser());
 
-// 🔧 Connexion à ta base Aiven
 const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -125,7 +126,9 @@ app.post('/api/register', async (req, res) => {
           // Envoyer le cookie avec le token
           res.cookie('token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
+            sameSite: 'none',
+            domain: 'greenitproject.onrender.com',
             maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
           });
           
@@ -163,7 +166,9 @@ app.post('/api/login', (req, res) => {
       // Envoyer le cookie avec le token
       res.cookie('token', token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
+        secure: true,
+        sameSite: 'none',
+        domain: 'greenitproject.onrender.com',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 jours
       });
       
