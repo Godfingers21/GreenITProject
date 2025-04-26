@@ -23,17 +23,10 @@
   color: #666;
   font-size: 1.1rem;
 }
-.selection-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 40px;
-}
 .selection-area {
   display: flex;
   gap: 20px;
-  width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 .column {
   flex: 1;
@@ -59,10 +52,9 @@
   margin: 5px 0;
   background-color: white;
   border-radius: 4px;
-  cursor: grab;
+  cursor: pointer;
   transition: all 0.2s;
   border: 1px solid #ddd;
-  user-select: none;
 }
 .item:hover {
   background-color: #fff0f0;
@@ -70,53 +62,27 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 .item.selected {
-  background-color: #ffecec;
-  border: 1px dashed #ff6b6b;
-}
-.item.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
+  background-color: #ff6b6b;
+  color: white;
+  font-weight: bold;
 }
 .drop-zone {
   background-color: #fff6f6;
   border: 2px dashed #ff6b6b;
-  border-radius: 12px;
-  min-height: 180px;
+  border-radius: 8px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0 auto 30px;
   width: 80%;
   padding: 20px;
-  transition: all 0.3s ease;
-  position: relative;
-}
-.drop-zone-hover {
-  background-color: #ffeaea;
-  border-color: #ff4f4f;
-  transform: scale(1.02);
-  box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
-}
-.drop-instruction {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #999;
-}
-.drop-icon {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
 }
 .drop-zone-title {
   font-size: 1.2rem;
   color: #666;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 .selected-items {
   display: flex;
@@ -127,65 +93,13 @@
 .selected-tag {
   background-color: #ff6b6b;
   color: white;
-  padding: 6px 12px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  transition: all 0.3s;
+  font-size: 0.9rem;
 }
-.selected-tag .emoji {
-  margin-right: 5px;
-  font-size: 1.2rem;
-}
-.selected-tag .name {
-  margin: 0 5px;
-}
-.remove-btn {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 1.2rem;
-  cursor: pointer;
-  margin-left: 5px;
-  padding: 0 5px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-.remove-btn:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-.tag-dropped {
-  animation: popIn 0.5s ease;
-}
-@keyframes popIn {
-  0% { transform: scale(0); }
-  70% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-.mixing {
-  animation: mix 1s ease;
-}
-@keyframes mix {
-  0% { transform: rotate(0); }
-  25% { transform: rotate(-5deg); }
-  50% { transform: rotate(5deg); }
-  75% { transform: rotate(-5deg); }
-  100% { transform: rotate(0); }
-}
-.drag-ghost {
-  position: absolute;
-  top: -1000px;
-  background-color: #ff6b6b;
-  color: white;
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-weight: bold;
-  pointer-events: none;
-  z-index: 9999;
+.no-selection {
+  color: #999;
+  font-style: italic;
 }
 .generate-btn {
   display: block;
@@ -198,8 +112,6 @@
   cursor: pointer;
   margin: 0 auto;
   transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
 }
 .generate-btn:hover {
   background-color: #ff5252;
@@ -211,36 +123,6 @@
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
-}
-.generate-btn::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 5px;
-  height: 5px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 0;
-  border-radius: 100%;
-  transform: scale(1, 1) translate(-50%);
-  transform-origin: 50% 50%;
-}
-.generate-btn:focus:not(:active)::after {
-  animation: ripple 1s ease-out;
-}
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  20% {
-    transform: scale(25, 25);
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 0;
-    transform: scale(40, 40);
-  }
 }
 .result {
   margin-top: 40px;
@@ -261,11 +143,6 @@
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
-  animation: slideUp 0.8s ease;
-}
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
 }
 .result p {
   font-size: 1.1rem;
@@ -307,8 +184,5 @@
   }
   .items {
     height: 150px;
-  }
-  .drop-zone {
-    width: 100%;
   }
 }
