@@ -16,11 +16,11 @@ app.use(cookieParser());
 
 // 🔧 Connexion à ta base Aiven
 const db = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
-  port: process.env.PORT
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT
 });
 
 db.connect((err) => {
@@ -44,10 +44,29 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+const cache = {};
+const CACHE_DURATION = 5 * 60 * 1000;
+
 // Routes existantes
-app.get('/api/animals', (_, res) => {
+app.get('/api/animals', (req, res) => {
+  const cacheKey = req.originalUrl;
+  
+  // Si la réponse est en cache et valide
+  if (cache[cacheKey] && cache[cacheKey].timestamp + CACHE_DURATION > Date.now()) {
+    console.log(cache);
+    return res.json(cache[cacheKey].data);
+  }
+
+  // Sinon, exécute la requête SQL
   db.query('SELECT * FROM Animal', (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
+    
+    // Stocke en cache
+    cache[cacheKey] = {
+      data: rows,
+      timestamp: Date.now()
+    };
+    
     res.json(rows);
   });
 });
@@ -229,4 +248,8 @@ app.delete('/api/collection/:idgenerate', authenticateToken, (req, res) => {
   );
 });
 
-app.listen(3001, () => console.log('✅ API running on http://localhost:3001'));
+const PORT = process.env.PORT || 3001;
+
+app.listen(PORT, '0.0.0.0', () => { // '0.0.0.0' est crucial pour Render
+  console.log(`✅ Server running on port ${PORT}`);
+});
