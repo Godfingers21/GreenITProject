@@ -8,7 +8,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: 'http://localhost:5173', // Ajustez selon votre frontend
+  origin: ['http://localhost:5173','https://green-it-project-tawny.vercel.app'], // Ajustez selon votre frontend
   credentials: true
 }));
 app.use(express.json());
