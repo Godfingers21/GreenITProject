@@ -117,9 +117,9 @@
         this.loading = true;
         
         const [animauxRes, objetsRes, metiersRes] = await Promise.all([
-          fetch('/api/animals').then(r => r.json()),
-          fetch('/api/objets').then(r => r.json()),
-          fetch('/api/metiers').then(r => r.json())
+          fetch('https://greenitproject.onrender.com/api/animals').then(r => r.json()),
+          fetch('https://greenitproject.onrender.com/api/objets').then(r => r.json()),
+          fetch('https://greenitproject.onrender.com/api/metiers').then(r => r.json())
         ]);
         
         this.animaux = animauxRes;
@@ -152,7 +152,7 @@
                 this.result = null;
                 this.isNew = false;
                 
-                const response = await fetch('/api/generate', {
+                const response = await fetch('https://greenitproject.onrender.com/api/generate', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -192,7 +192,7 @@
             try {
                 this.collectLoading = true;
 
-                const response = await fetch('/api/collection/add', {
+                const response = await fetch('https://greenitproject.onrender.com/api/collection/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

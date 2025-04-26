@@ -115,7 +115,7 @@ export default {
     async login() {
       try {
         this.error = '';
-        const response = await fetch('/api/login', {
+        const response = await fetch('https://greenitproject.onrender.com/api/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -154,7 +154,7 @@ export default {
           return;
         }
         
-        const response = await fetch('/api/register', {
+        const response = await fetch('https://greenitproject.onrender.com/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

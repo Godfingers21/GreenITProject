@@ -79,7 +79,7 @@
   
       async fetchCollection() {
         try {
-          const response = await fetch('/api/collection', {
+          const response = await fetch('https://greenitproject.onrender.com/api/collection', {
             credentials: 'include'
           });
   
@@ -103,7 +103,7 @@
   
       async removeFromCollection(idgenerate) {
         try {
-          const response = await fetch(`/api/collection/${idgenerate}`, {
+          const response = await fetch(`https://greenitproject.onrender.com/api/collection/${idgenerate}`, {
             method: 'DELETE',
             credentials: 'include'
           });
@@ -122,7 +122,7 @@
   
       async logout() {
         try {
-          await fetch('/api/logout', {
+          await fetch('https://greenitproject.onrender.com/api/logout', {
             method: 'POST',
             credentials: 'include'
           });
