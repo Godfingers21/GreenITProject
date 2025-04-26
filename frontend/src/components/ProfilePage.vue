@@ -79,7 +79,7 @@
   
       async fetchCollection() {
         try {
-          const response = await fetch('http://localhost:3001/api/collection', {
+          const response = await fetch('/api/collection', {
             credentials: 'include'
           });
   
@@ -103,7 +103,7 @@
   
       async removeFromCollection(idgenerate) {
         try {
-          const response = await fetch(`http://localhost:3001/api/collection/${idgenerate}`, {
+          const response = await fetch(`/api/collection/${idgenerate}`, {
             method: 'DELETE',
             credentials: 'include'
           });
@@ -122,7 +122,7 @@
   
       async logout() {
         try {
-          await fetch('http://localhost:3001/api/logout', {
+          await fetch('/api/logout', {
             method: 'POST',
             credentials: 'include'
           });
