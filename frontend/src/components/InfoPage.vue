@@ -25,10 +25,12 @@
           <p>Nous utilisons des polices web optimisées qui se chargent rapidement et consomment moins de bande passante. Cela contribue à une expérience utilisateur plus fluide et à une réduction de l'empreinte carbone.</p>
         </div>
       </div>
+      <CarbonBadge/>
     </div>
   </template>
   
   <script>
+  import CarbonBadge from "vue-carbonbadge";
   export default {
     name: 'InfoPage'
   }
